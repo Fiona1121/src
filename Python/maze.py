@@ -27,8 +27,13 @@ class Maze:
                 self.nd_dict[x] = node
             for y in range(1,5):
                 if not np.isnan(self.raw_data[x][y]):
-                    node.setSuccessor(Node(self.raw_data[x][y]),y,self.raw_data[x][4+y])
-        
+                    index = self.raw_data[x][y]
+                    if index in self.nd_dict():
+                        node.setSuccessor(Node(self.nd_dict[index],y,self.raw_data[x][4+y])
+                    else:
+                        self.nd_dict[index] = Node(index)
+                        node.setSuccessor(Node(self.nd_dict[index],y,self.raw_data[x][4+y])
+
     def getStartPoint(self):
         if (len(self.nd_dict) < 2):
             print("Error: the start point is not included.")
